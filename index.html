@@ -1,378 +1,179 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>화이트데이 이벤트</title>
 
-​
-
 <style>
-
 * { box-sizing: border-box; }
-
 html { -webkit-text-size-adjust: 100%; }
-
 button { -webkit-appearance: none; appearance: none; font: inherit; }
 
-​
-
 body {
-
   margin: 0;
-
   min-height: 100vh;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
 
-​
-
-  /* ⭐ 배경 이미지 수정하려면 01.jpg 파일 교체 */
-
   background-image:
-
     linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-
     url("01.jpg");
-
-​
-
   background-size: cover;
-
   background-position: center;
-
   background-repeat: no-repeat;
 
-​
-
   font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-
   overflow: hidden;
-
   transition: background-image 0.5s ease;
-
   padding: 24px;
-
 }
-
-​
 
 .card {
-
   background: rgba(255,255,255,0.95);
-
   padding: 32px;
-
   border-radius: 20px;
-
   text-align: center;
-
   box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-
   max-width: 420px;
-
   width: 100%;
-
 }
-
-​
-
-/* ⭐ 여기 문구 수정 */
 
 h1 {
-
   font-size: 20px;
-
   margin-bottom: 24px;
-
   line-height: 1.6;
-
 }
-
-​
 
 .btn-container {
-
   position: relative;
-
   width: 280px;
-
   height: 56px;
-
   margin: 0 auto;
-
 }
-
-​
 
 .btn {
-
   position: absolute;
-
   top: 0;
 
-​
-
   width: 120px;
-
   height: 48px;
 
-​
-
   border-radius: 30px;
-
   border: none;
-
   font-size: 16px;
-
   cursor: pointer;
-
   transition: transform 0.15s ease;
-
   user-select: none;
-
 }
-
-​
 
 .btn:active { transform: scale(0.98); }
 
-​
-
 .yes {
-
   left: 0;
-
-  background: #ff4d6d; /* ⭐ Yes 색상 변경 가능 */
-
+  background: #ff4d6d;
   color: white;
-
   z-index: 2;
-
 }
-
-​
 
 .no {
-
   left: 160px;
-
-  background: #d6d6d6; /* ⭐ No 색상 변경 가능 */
-
+  background: #d6d6d6;
   color: #111;
-
   z-index: 1;
-
 }
-
-​
-
-/* ⭐ Yes 눌렀을 때 나오는 문구 수정 */
 
 .result {
-
   margin-top: 18px;
-
   font-size: 20px;
-
   font-weight: bold;
-
   color: #ff4d6d;
-
   display: none;
-
 }
-
-​
 
 .heart {
-
   position: fixed;
-
   pointer-events: none;
-
   animation: float 2.8s linear forwards;
-
 }
-
-​
 
 @keyframes float {
-
   0% { transform: translateY(0); opacity: 1; }
-
   100% { transform: translateY(-300px); opacity: 0; }
-
 }
-
 </style>
-
 </head>
-
-​
 
 <body>
 
-​
-
 <div class="card">
-
   <h1>
-
-    ⭐ 여기 문구를<br>
-
-    원하는 문장으로 바꿔보세요
-
+    발렌타인데이에는 못만났지만<br>
+    화이트데이에 같이 데이트 할래?
   </h1>
 
-​
-
   <div class="btn-container" id="btnArea">
-
     <button class="btn yes" id="yesBtn" type="button">Yes</button>
-
     <button class="btn no" id="noBtn" type="button">No</button>
-
   </div>
-
-​
 
   <div class="result" id="result">
-
-    ❤️ 여기 결과 문구 수정 ❤️
-
+    ❤️ 우리 화이트데이 데이트 확정 ❤️
   </div>
-
 </div>
 
-​
-
 <script>
-
 const yesBtn = document.getElementById("yesBtn");
-
 const noBtn = document.getElementById("noBtn");
-
 const btnArea = document.getElementById("btnArea");
-
 const result = document.getElementById("result");
 
-​
-
 yesBtn.addEventListener("click", () => {
-
-  /* ⭐ Yes 눌렀을 때 바뀌는 배경 (02.jpg 파일 교체 가능) */
-
   document.body.style.backgroundImage =
-
     'linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url("02.jpg")';
-
-​
-
   result.style.display = "block";
-
   createHearts();
-
 });
-
-​
 
 function createHearts() {
-
   for (let i = 0; i < 20; i++) {
-
     const heart = document.createElement("div");
-
     heart.className = "heart";
-
     heart.textContent = "❤️";
-
     heart.style.left = Math.random() * window.innerWidth + "px";
-
     heart.style.top = window.innerHeight + "px";
-
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 2800);
-
   }
-
 }
-
-​
 
 function moveNo() {
-
   const w = 120;
-
   const h = 48;
 
-​
-
   const maxX = btnArea.clientWidth - w;
-
   const maxY = btnArea.clientHeight - h;
 
-​
-
   const x = Math.random() * maxX;
-
   const y = Math.random() * maxY;
 
-​
-
   noBtn.style.left = x + "px";
-
   noBtn.style.top  = y + "px";
-
 }
 
-​
-
 noBtn.addEventListener("mouseenter", moveNo);
-
 noBtn.addEventListener("pointerdown", (e) => {
-
   e.preventDefault();
-
   moveNo();
-
 }, { passive: false });
-
 noBtn.addEventListener("click", (e) => {
-
   e.preventDefault();
-
   moveNo();
-
 });
 
-​
+window.add
 
-window.addEventListener("load", () => {
-
-  noBtn.style.left = "160px";
-
-  noBtn.style.top = "0px";
-
-});
-
-</script>
-
-​
-
-</body>
-
-</html>
 
 ​
 
